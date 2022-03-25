@@ -1,21 +1,21 @@
 // const sequelize = require("../libs/sequelize");
 // const { models } = require("../libs/sequelize");
 
-const { ModelNote } = require("../database/database");
+const { ModelTask } = require("../database/database");
 
 // const boom = require("@hapi/boom");
 
-class NoteService {
+class TaskService {
     constructor() {
 
     }
     async find() {
-      const rta = await ModelNote.find();
+      const rta = await ModelTask.find();
       return rta;
     }
   
     async create(data) {
-      const newTodo = await ModelNote.create(data)
+      const newTodo = await ModelTask.create(data);
       return { 
         create: true
       }
@@ -35,12 +35,12 @@ class NoteService {
     //   }
   
     async update(id, changes) {
-      const todo = await ModelNote.findByIdAndUpdate(id, changes);
+      const todo = await ModelTask.findByIdAndUpdate(id, changes);
       return todo;
     }
   
     async delete(id) {
-      const rta = await ModelNote.findByIdAndDelete(id);
+      const rta = await ModelTask.findByIdAndDelete(id);
       console.log('delete, rta!!',rta)
       return {
         delete: true,
@@ -49,5 +49,5 @@ class NoteService {
     }
 }
   
-  module.exports = NoteService;
+  module.exports = TaskService;
   

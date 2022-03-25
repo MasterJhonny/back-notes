@@ -3,13 +3,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const schemaNote = new Schema({
+const schemaTask = new Schema({
     title: {
         type: String,
         require: true,
     },
-    description: {
+    url: {
         type: String,
+        require: true,
+    },
+    time: {
+        type: String,
+        require: true,
+    },
+    days: {
+        type: Array,
         require: true,
     },
     color: {
@@ -27,4 +35,4 @@ const schemaNote = new Schema({
 })
 
 
-module.exports = schemaNote;
+module.exports = schemaTask;

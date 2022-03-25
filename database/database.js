@@ -6,18 +6,18 @@ const db = require('mongoose');
 
 // import model database
 const schemaUser = require('./model.users')
-const schemaNote = require('./model.notes')
+const schemaTask = require('./model.tasks')
 
 
 //  created model 
 const ModelUser = mongoose.model('users', schemaUser);
-const ModelNote = mongoose.model('notes', schemaNote);
+const ModelTask = mongoose.model('tasks', schemaTask);
 
 // destructurin config
 const { user, password, database } = config;
 
 // definid uri
-const URI = `mongodb+srv://${user}:${password}@${database}.8jgwi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+const URI = `mongodb+srv://${user}:${password}@${database}.epzrl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
 
 // conected database
@@ -29,4 +29,4 @@ db.connect(URI, {
 .then(()=> console.log('database yes!!'))
 .catch(err => console.error('[DATA BASE ERROR]', err))
 
-module.exports = { db, ModelUser, ModelNote }
+module.exports = { db, ModelUser, ModelTask }

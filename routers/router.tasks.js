@@ -1,16 +1,16 @@
 const express = require('express');
 
-const NoteService = require('../services/service.notes');
+const TaskService = require('../services/service.tasks');
 // const validatorHandler = require('./../middlewares/validator.handler');
 // const { updateTodoSchema, createTodoSchema, getTodoSchema } = require('./../schemas/user.schema');
 
 const router = express.Router();
-const service = new NoteService();
+const service = new TaskService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const todos = await service.find();
-    res.json(todos);
+    const tasks = await service.find();
+    res.status(200).json(tasks);
   } catch (error) {
     // next(error);
     console.error(error);
@@ -34,10 +34,10 @@ router.post('/',
   // validatorHandler(createTodoSchema, 'body'),
   async (req, res, next) => {
     try {
-      const note = req.body;
-      console.log('note new!!',note)
-      const newNote = await service.create(note);
-      res.status(201).json(newNote);
+      const task = req.body;
+      // console.log('task new!!',task)
+      const newTask = await service.create(task);
+      res.status(201).json(newTask);
     } catch (error) {
       console.error(error);
        // next(error);

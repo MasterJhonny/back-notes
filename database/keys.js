@@ -1,7 +1,7 @@
 module.exports = {
     config: {
-        user: 'admidev',
-        password: 'notes12345',
-        database: 'data-notes'
+        user: 'user22',
+        password: 'redirect1234',
+        database: 'back-task-redirect'
     }
 }
