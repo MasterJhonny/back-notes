@@ -41,7 +41,7 @@ class TaskService {
   
     async delete(id) {
       const rta = await ModelTask.findByIdAndDelete(id);
-      console.log('delete, rta!!',rta)
+      // console.log('delete, rta!!',rta)
       return {
         delete: true,
         id,
