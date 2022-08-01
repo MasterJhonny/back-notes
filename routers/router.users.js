@@ -1,4 +1,6 @@
 const express = require('express');
+const { jwtAuth } = require("../auth/jwt");
+const { upload } = require("../libs/storage")
 
 const UserService = require('../services/service.users');
 // const validatorHandler = require('./../middlewares/validator.handler');
@@ -30,18 +32,77 @@ router.get('/', async (req, res, next) => {
 //     }
 //   }
 // );
-// router.post('/',
-// validatorHandler(createUserSchema, 'body'),
-// async (req, res, next) => {
-//   try {
-//     const body = req.body;
-//     const newCategory = await service.create(body);
-//     res.status(201).json(newCategory);
-//   } catch (error) {
-//     next(error);
-//   }
-// }
-// );
+
+
+router.post('/register',
+  upload.single('avatar'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const file =  req.file;
+
+      const id = await service.create(body, file.filename);
+      const token = jwtAuth.createToken({ id });
+
+      res.status(201).json({
+        auth: true,
+        token: token
+      });
+    } catch (error) {
+      // next(error);
+      console.error(error);
+    }
+  }
+);
+
+router.post('/login', 
+  async (req, res) => {
+    try {
+      const body = req.body;
+      const rta = await service.login(body);
+      
+      if(rta.auth){
+        const id = rta.id;
+        const token = jwtAuth.createToken({ id })
+        res.status(201).json({
+          ...rta,
+          token
+        })
+
+      } else {
+        res.status(201).json(rta);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+router.post('/auth', 
+  async (req, res, next) => {
+    try {
+      const token = req.headers.authorization;
+      const decode = jwtAuth.decodeToken(token);
+      if(decode) {
+        const user = await service.findOne(decode.id)
+        res.status(200).json({
+          ...user,
+          auth: true
+        });
+      } else {
+        res.status(401).json({
+          auth: false
+        });
+      }
+
+    } catch (error) {
+      // next(error);
+      console.error(error);
+
+    }
+  }
+);
+
 
 // router.patch('/:id',
 // validatorHandler(getUserSchema, 'params'),

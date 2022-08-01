@@ -16,6 +16,7 @@ class TaskService {
   
     async create(data) {
       const newTodo = await ModelTask.create(data);
+
       return { 
         create: true
       }
@@ -26,13 +27,13 @@ class TaskService {
     //     return rta;
     //   }
   
-    //   async findOne(id) {
-    //     const user = await models.User.findByPk(id);
-    //     if(!user){
-    //       throw boom.notFound('Ups, user not found');
-    //     }
-    //     return user;
-    //   }
+    async findOne(id) {
+      const tasks = await ModelTask.find({userId: id});
+      if(!tasks) {
+        throw new Error('Ups, user not found');
+      }
+      return tasks;
+    }
   
     async update(id, changes) {
       const todo = await ModelTask.findByIdAndUpdate(id, changes);

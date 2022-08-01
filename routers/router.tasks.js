@@ -7,35 +7,36 @@ const TaskService = require('../services/service.tasks');
 const router = express.Router();
 const service = new TaskService();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const tasks = await service.find();
-    res.status(200).json(tasks);
-  } catch (error) {
-    // next(error);
-    console.error(error);
-  }
-});
-
-// router.get('/:id',
-//   validatorHandler(getTodoSchema, 'params'),
-//   async (req, res, next) => {
-//     try {
-//       const { id } = req.params;
-//       const category = await service.findOne(id);
-//       res.json(category);
-//     } catch (error) {
-//       next(error);
-//     }
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const tasks = await service.find();
+//     res.status(200).json(tasks);
+//   } catch (error) {
+//     // next(error);
+//     console.error(error);
 //   }
-// );
+// });
+
+router.get('/:id',
+  // validatorHandler(getTodoSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const tasks = await service.findOne(id);
+      res.json(tasks);
+    } catch (error) {
+      // next(error);
+      console.error(error);
+
+    }
+  }
+);
 
 router.post('/',
   // validatorHandler(createTodoSchema, 'body'),
   async (req, res, next) => {
     try {
       const task = req.body;
-      // console.log('task new!!',task)
       const newTask = await service.create(task);
       res.status(201).json(newTask);
     } catch (error) {

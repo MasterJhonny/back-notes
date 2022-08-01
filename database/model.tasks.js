@@ -24,9 +24,9 @@ const schemaTask = new Schema({
         type: String,
         require: true,
     },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
+    userId: {
+        type: String,
+        require: true,
     },
     created_at: {
         type: Date,
