@@ -1,6 +1,7 @@
 const express = require('express');
 const { jwtAuth } = require("../auth/jwt");
-const { upload } = require("../libs/storage")
+const { upload } = require("../libs/storage");
+const { cloudinary } = require("../libs/cloudinary");
 
 const UserService = require('../services/service.users');
 // const validatorHandler = require('./../middlewares/validator.handler');
@@ -41,7 +42,13 @@ router.post('/register',
       const body = req.body;
       const file =  req.file;
 
-      const id = await service.create(body, file.filename);
+      const rta = await cloudinary.uploader.upload(file.path);
+      const newUser = {
+        ...body,
+        avatar: rta.secure_url
+      }
+
+      const id = await service.create(newUser);
       const token = jwtAuth.createToken({ id });
 
       res.status(201).json({

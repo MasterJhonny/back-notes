@@ -1,7 +1,6 @@
 const bcryptjs = require('bcryptjs');
 
 const { ModelUser } = require("../database/database");
-const func = require("../func/func")
 
 // const boom = require("@hapi/boom");
 
@@ -16,11 +15,10 @@ class UserService {
     return data;
   }
 
-  async create(data, fileName) {
+  async create(data) {
     const newDataUser =  {
       ...data,
-      password: await bcryptjs.hash(data.password, 10),
-      avatar: fileName ? func.setAvatarUrl(fileName) : null
+      password: await bcryptjs.hash(data.password, 10)
     }
 
     const newUser = await ModelUser.create(newDataUser);
