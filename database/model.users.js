@@ -18,6 +18,16 @@ const schemaUser = Schema({
     avatar: {
         type: String,
         require: true
+    },
+    cloud_avatar_id: {
+        type: String,
+        require: true
+    },
+    schedule: {
+        type: String,
+    },
+    cloud_schedule_id: {
+        type: String,
     }
 })
 

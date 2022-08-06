@@ -67,19 +67,22 @@ class UserService {
     if(!user){
       throw new Error('Ups, user not found');
     }
-    const {_id, name, avatar } = user;
+    const {_id, name, avatar, cloud_avatar_id } = user;
     return {
       id: _id,
       name,
-      avatar
+      avatar,
+      cloud_avatar_id
     };
   }
 
-  //   async update(id, changes) {
-  //     const user = await this.findOne(id);
-  //     const rta = await user.update(changes);
-  //     return rta;
-  //   }
+  async update(id, changes) {
+    // console.log('update', changes)
+    const user = await ModelUser.findByIdAndUpdate(id, changes);
+    return user;
+  }
+
+  
 
   //   async delete(id) {
   //     const user = await this.findOne(id);
