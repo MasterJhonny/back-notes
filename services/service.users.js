@@ -67,12 +67,13 @@ class UserService {
     if(!user){
       throw new Error('Ups, user not found');
     }
-    const {_id, name, avatar, cloud_avatar_id } = user;
+    const {_id, name, avatar, cloud_avatar_id, cloud_schedule_id } = user;
     return {
       id: _id,
       name,
       avatar,
-      cloud_avatar_id
+      cloud_avatar_id, 
+      cloud_schedule_id
     };
   }
 
