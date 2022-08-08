@@ -169,7 +169,8 @@ upload.single('schedule'),
         cloud_schedule_id: rta.public_id
       }
 
-      const userUpdated = await service.update(id, updateSchedule);
+      await service.update(id, updateSchedule);
+      const userUpdated = await service.findOne(id);
       res.status(201).json(userUpdated);
     } catch (error) {
       // next(error);
