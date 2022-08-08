@@ -170,7 +170,11 @@ upload.single('schedule'),
       }
 
       await service.update(id, updateSchedule);
-      const userUpdated = await service.findOne(id);
+      const userupdate = await service.findOne(id);
+      const userUpdated = {
+      ...userupdate,
+      auth: true
+      }
       res.status(201).json(userUpdated);
     } catch (error) {
       // next(error);
